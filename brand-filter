@@ -1,0 +1,213 @@
+======================== snippets:- custom-brand.liquid =================================== 
+{% assign alphabet = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z' %}
+            {% assign alphabet = alphabet | split:',' %}
+          <div id="MegaMenu-Content-{{ forloop.index }}" class="mega-menu__content gradient motion-reduce global-settings-popup custom-brandMenu" tabindex="-1">
+              <div class="brand-filter-wrapper">
+              <ul class="mega-menu__list custom_brand_list {% if link.levels == 1 %} mega-menu__list--condensed{% endif %}" id="level-{{ link.levels }}" role="list">
+             {% assign heading = "Feaured Brands" %}
+              <h4>{{ heading }}</h4>
+               {% for product_vendor in collection.all_vendors limit:10 %}
+                  <li class="mega-menu__link link">
+                    {{- product_vendor | link_to_vendor }}
+                  </li>
+                {% endfor %}
+              </ul>
+              <div class="brand-list">
+               {% assign brand_heading = "Brands A-Z" %}
+               <h4>{{ brand_heading }}</h4>
+                <ul class="mega-menu__list brand-list-wrapper list-unstyled">
+                  <li class="list-menu__item "><a href="/pages/{{ collection.title | downcase }}-brand#brand-0-9">0-9</a></li>
+                  {% for brand in alphabet %}
+                  <li class="list-menu__item "><a href="/pages/{{ collection.title | downcase }}-brand#brand-{{ brand }}">{{ brand }}</a></li>
+                  {% endfor %}
+                </ul>
+            </div>
+              </div>
+          </div>
+<style>
+  .custom-brandMenu{
+    display:flex;
+  }
+  .custom-brandMenu .custom_brand_list{
+    flex-direction:column;
+  }
+  div#MegaMenu-Content- {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 100%;
+      max-width: 100%;
+  }
+  .brand-filter-wrapper {
+      max-width: 875px;
+      display: flex;
+      flex: 0 0 100%;
+  }
+  ul#level- {
+    flex: 0 0 100%;
+    max-width: 50%;
+}
+ ul#level- li.mega-menu__link.link{
+   width:100%;
+ }
+.mega-menu__link.link>a, li.list-menu__item>a {
+    font-weight: 400!important;
+    font-size: 13px;
+    letter-spacing: .03em;
+    line-height: 24px;
+    color: #000;
+    font-family: Roboto;
+    text-decoration: none;
+}
+</style>
+           
+  ================================================================== sections:-brand.liquid ========================================================
+  <style>
+  .custom-brand-wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 0 50px;
+    margin: 30px 0 50px;
+    margin-top: 6rem;
+    overflow: unset;
+    display: block;
+    position: relative;
+}
+  .brand-list-wrapper {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+}
+ .custom-brand-name {
+    display: flex;
+    margin-bottom: 40px;
+}
+  .brand-name-tag {
+    flex: 1;
+    text-align: center;
+}
+  .brand-name-list-wrapper {
+    flex: 12;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 50px;
+}
+  .brand-name-list {
+    flex: 0 0 250px;
+    padding-bottom: 10px;
+}
+  .custom-brand-wrapper .custom-brands {
+    display: block;
+    overflow: unset;
+    position: fixed;
+    top: 100px;
+    left: 0;
+    padding: 10px 50px;
+    right: 0;
+    background: #fff;
+    transition: 0.3s all ease-in-out;
+}
+ .custom-brand-name-wrapper {
+    width: 100%;
+    height: 100%;
+    margin-top: 50px;
+}
+.brand-list{
+    max-width: 1140px;
+    margin: 0 auto;
+}
+.custom-brand-name-wrapper{
+    max-width: 1140px;
+    margin: 50px auto;
+}
+li.brand-list.item>a, li.list-menu__item>a, .brand-name-list>a{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000000;
+    z-index: 2;
+    position: relative;
+    text-transform: uppercase;
+    font-family: 'Futura';
+    transition: transform .3s ease-in-out;
+    letter-spacing: 0;
+    text-decoration: none;
+}
+</style>
+  {% assign custom_handle = handle | split:'-' %}
+ {% assign alphabet = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z' %}
+ {% assign number = "0,1,2,3,4,5,6,7,8,*" %}
+           {% assign alphabet = alphabet | split:',' %}
+           {% assign number = number | split:',' %}
+          <div class="custom-brand-wrapper">
+             <div class="brand-list">
+                <ul class="brand-list-wrapper">
+                  {% for brand in alphabet %}
+                  <li class="brand-list item"><a href="#brand-{{ brand }}">{{ brand }}</a></li>
+                  {% endfor %}
+                  <li class="list-menu__item "><a href="#brand-0-9">0-9</a></li>
+                </ul>
+            </div>
+            <div class="custom-brand-name-wrapper">
+                 {% for brand in alphabet %}
+                    <div class="custom-brand-name" id="brand-{{ brand }}">
+                      <span class="brand-name-tag">{{ brand }}</span>
+                        <ul class="brand-name-list-wrapper">
+                      {% for vendor in collections[custom_handle.first].all_vendors %}
+                        {% assign alphabet_vendor = vendor | split:"" %}
+                          {%- if brand == alphabet_vendor.first -%}
+                          <li class="brand-name-list">{{- vendor | link_to_vendor }}</li>
+                          {% endif %}
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+                 <div class="custom-brand-name" id="brand-0-9">
+                      <span class="brand-name-tag">0-9</span>
+                        <ul class="brand-name-list-wrapper">
+                {% for number in number %}
+                      {% for vendor in collections[custom_handle.first].all_vendors %}
+                        {% assign number_vendor = vendor | split:"" %}
+                          {%- if number == number_vendor.first -%}
+                          <li class="brand-name-list">{{- vendor | link_to_vendor }}</li>
+                          {% endif %}
+                        {% endfor %}
+                       
+                {% endfor %}
+                 </ul>
+                    </div>
+            </div>
+          </div>
+{% schema %}
+  {
+    "name": "Body content",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+
+============================================= Page:- brand.json
+{
+  "sections": {
+    "main": {
+      "type": "brand",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
